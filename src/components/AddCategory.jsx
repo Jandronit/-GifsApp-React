@@ -1,9 +1,9 @@
 import {useState} from 'react';
 
 
-export const AddCategory = () => {
+export const AddCategory = ({ setCategories }) => {
 
-    const [inputValue, setInputValue] = useState('One Punch');
+    const [inputValue, setInputValue] = useState('');
 
     const onInputChange = (e) => {
         setInputValue(e.target.value);
@@ -11,7 +11,10 @@ export const AddCategory = () => {
 
     const onSubmit = (e) => {
         e.preventDefault();
-        console.log(inputValue);
+        if (inputValue.trim().length <= 1) return;
+
+        setCategories(categories => [...categories, inputValue]);
+        setInputValue('');
     }
 
     return (
@@ -19,7 +22,7 @@ export const AddCategory = () => {
         <input type="text"
                placeholder="Buscar gifs"
                value={ inputValue }
-               onChange={onInputChange}
+               onChange={ onInputChange }
         />
         </form>
     )
